@@ -18,7 +18,7 @@ public:
 
 private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 	void addStudentHelper(StudentNode*& head, StudentNode*& tail, string id, string fName, string lName, string pNo) {
-		StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
+		/*StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
 		if (head == NULL) {
 			head = newNode;
 			tail = newNode;
@@ -29,13 +29,13 @@ private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 		}
 		ofstream fout("student.txt", ios::app);
 		fout << id << ", " << fName << ", " << lName << ", " << pNo << endl;
-		fout.close();
+		fout.close();*/
 	}
 
 	
 
 	void listStudentsHelper(StudentNode* head) {
-		if (head == NULL) {
+		/*if (head == NULL) {
 			cout << "No record exists" << endl;
 			return;
 		}
@@ -43,7 +43,7 @@ private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 		while (temp != NULL) {
 			cout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
 			temp = temp->next;
-		}
+		}*/
 	}
 
 	void addIntoList(StudentNode*& head, StudentNode*& tail, string id, string fName, string lName, string pNo) {
@@ -59,7 +59,7 @@ private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 	}
 
 	void modifyStudentDataHelper(StudentNode* head, string id, string fname, string lname, string pNo) {
-		ofstream fout("temp.txt");
+		/*ofstream fout("temp.txt");
 		remove("student.txt");
 
 		//std::ifstream src("student.txt", std::ios::binary);
@@ -83,16 +83,37 @@ private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 			temp = temp->next;
 		}
 		fout.close();
-		rename("temp.txt", "student.txt");
+		rename("temp.txt", "student.txt");*/
 	}
 
 public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 	void addStudent(string id, string fName, string lName, string pNo) {
-		addStudentHelper(head, tail, id, fName, lName, pNo);
+		//addStudentHelper(head, tail, id, fName, lName, pNo);
+		StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
+		if (head == NULL) {
+			head = newNode;
+			tail = newNode;
+		}
+		else {
+			tail->next = newNode;
+			tail = newNode;
+		}
+		ofstream fout("student.txt", ios::app);
+		fout << id << ", " << fName << ", " << lName << ", " << pNo << endl;
+		fout.close();
 	}
 
 	void listStudents() {
-		listStudentsHelper(head);
+		// listStudentsHelper(head);
+		if (head == NULL) {
+			cout << "No record exists" << endl;
+			return;
+		}
+		StudentNode* temp = head;
+		while (temp != NULL) {
+			cout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
+			temp = temp->next;
+		}
 	}
 
 	void readFromFile() {
@@ -126,8 +147,33 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		return false;
 	}
 
-	void modifyStudentData(string id, string fName, string lName, string pno) {
-		modifyStudentDataHelper(head, id, fName, lName, pno);
+	void modifyStudentData(string id, string fName, string lName, string pNo) {
+		// modifyStudentDataHelper(head, id, fName, lName, pno);
+		ofstream fout("temp.txt");
+		remove("student.txt");
+
+		//std::ifstream src("student.txt", std::ios::binary);
+		//std::ofstream dst("temp.txt", std::ios::binary);
+		//dst << src.rdbuf();
+
+		StudentNode* temp = head;
+		while (temp != NULL) {
+			if (temp->studentId == id) {
+				break;
+			}
+			temp = temp->next;
+		}
+		temp->firstName = fName;
+		temp->lastName = lName;
+		temp->phoneNo = pNo;
+
+		temp = head;
+		while (temp != NULL) {
+			fout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
+			temp = temp->next;
+		}
+		fout.close();
+		rename("temp.txt", "student.txt");
 	}
 
 	void deleteStudentData(string id) {

@@ -29,8 +29,9 @@ int main() {
 	else {
 		cout << "Already present" << endl;
 	}
-
+	s1.modifyStudentData("2", "hamza", "sajid", "0313");
 	s1.deleteStudentData("1");
+	s1.listStudents();
 
 	
 }
