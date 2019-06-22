@@ -2,26 +2,22 @@
 #include <fstream>
 #include "Student.h"
 #include "Course.h"
+#include "Result.h"
 using namespace std;
 
 int main() {
-	Course c;
-	string id;
-	c.readFromCourseFile();
-	cin >> id;
-	if (c.isCoursePresent(id)) {
-		cout << "Course already present" << endl;
-	}
-	else {
-		c.addCourse(id, "ds");
-	}
-	c.addCourse("7", "PF");
-	c.addCourse("9", "dld");
-	c.modifyCourseData("1", "toa");
-	c.listCourses();
-	c.deleteCourseData("7");
-	c.deleteCourseData("1");
-	cout << "After deletion" << endl;
-	c.listCourses();
+	Result r;
+	string cid, sid;
+	cin >> cid;
+	cin >> sid;
+
+	r.readFromResultFile();
+
+	r.addResult("123", "1", "1st", 54);
+	r.addResult("455", "2", "2nd", 123);
+	r.addResult("457", "4", "3rd", 143);
+	r.deleteResultData("455");
+	r.modifyResultData("123", "1", "8th", 100);
+	r.listResult();
 
 }
