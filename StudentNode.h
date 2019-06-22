@@ -11,11 +11,11 @@ public:
 	string phoneNo;
 	StudentNode *next;
 
-	StudentNode(string stdId, string fName, string lName, string phNo) {
+	StudentNode(string stdId, string fName, string lName, string pNo) {
 		this->studentId = stdId;
 		this->firstName = fName;
 		this->lastName = lName;
-		this->phoneNo = phoneNo;
+		this->phoneNo = pNo;
 		next = NULL;
 	}
 };
