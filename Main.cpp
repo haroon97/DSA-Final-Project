@@ -1,37 +1,27 @@
 #include <iostream>
 #include <fstream>
 #include "Student.h"
+#include "Course.h"
 using namespace std;
 
 int main() {
-	Student s1;
-	s1.readFromFile();
+	Course c;
 	string id;
+	c.readFromCourseFile();
+	cin >> id;
+	if (c.isCoursePresent(id)) {
+		cout << "Course already present" << endl;
+	}
+	else {
+		c.addCourse(id, "ds");
+	}
+	c.addCourse("7", "PF");
+	c.addCourse("9", "dld");
+	c.modifyCourseData("1", "toa");
+	c.listCourses();
+	c.deleteCourseData("7");
+	c.deleteCourseData("1");
+	cout << "After deletion" << endl;
+	c.listCourses();
 
-	cin >> id;
-	if (!s1.isStudentPresent(id)) {
-		s1.addStudent(id, "Haza", "ahmed", "123344");
-	}
-	else {
-		cout << "Already present" << endl;
-	}
-	cin >> id;
-	if (!s1.isStudentPresent(id)) {
-		s1.addStudent(id, "hasan", "ashfaq", "56789");
-	}
-	else {
-		cout << "Already Present" << endl;
-	}
-	cin >> id;
-	if (!s1.isStudentPresent(id)) {
-		s1.addStudent(id, "ahmed", "hasan", "6764");
-	}
-	else {
-		cout << "Already present" << endl;
-	}
-	s1.modifyStudentData("2", "hamza", "sajid", "0313");
-	s1.deleteStudentData("1");
-	s1.listStudents();
-
-	
 }

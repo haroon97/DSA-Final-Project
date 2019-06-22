@@ -17,35 +17,6 @@ public:
 	}
 
 private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
-	void addStudentHelper(StudentNode*& head, StudentNode*& tail, string id, string fName, string lName, string pNo) {
-		/*StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
-		if (head == NULL) {
-			head = newNode;
-			tail = newNode;
-		}
-		else {
-			tail->next = newNode;
-			tail = newNode;
-		}
-		ofstream fout("student.txt", ios::app);
-		fout << id << ", " << fName << ", " << lName << ", " << pNo << endl;
-		fout.close();*/
-	}
-
-	
-
-	void listStudentsHelper(StudentNode* head) {
-		/*if (head == NULL) {
-			cout << "No record exists" << endl;
-			return;
-		}
-		StudentNode* temp = head;
-		while (temp != NULL) {
-			cout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
-			temp = temp->next;
-		}*/
-	}
-
 	void addIntoList(StudentNode*& head, StudentNode*& tail, string id, string fName, string lName, string pNo) {
 		StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
 		if (head == NULL) {
@@ -58,37 +29,8 @@ private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 		}
 	}
 
-	void modifyStudentDataHelper(StudentNode* head, string id, string fname, string lname, string pNo) {
-		/*ofstream fout("temp.txt");
-		remove("student.txt");
-
-		//std::ifstream src("student.txt", std::ios::binary);
-		//std::ofstream dst("temp.txt", std::ios::binary);
-		//dst << src.rdbuf();
-
-		StudentNode* temp = head;
-		while (temp != NULL) {
-			if (temp->studentId == id) {
-				break;
-			}
-			temp = temp->next;
-		}
-		temp->firstName = fname;
-		temp->lastName = lname;
-		temp->phoneNo = pNo;
-
-		temp = head;
-		while (temp != NULL) {
-			fout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
-			temp = temp->next;
-		}
-		fout.close();
-		rename("temp.txt", "student.txt");*/
-	}
-
 public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 	void addStudent(string id, string fName, string lName, string pNo) {
-		//addStudentHelper(head, tail, id, fName, lName, pNo);
 		StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
 		if (head == NULL) {
 			head = newNode;
@@ -104,7 +46,6 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 	}
 
 	void listStudents() {
-		// listStudentsHelper(head);
 		if (head == NULL) {
 			cout << "No record exists" << endl;
 			return;
@@ -148,7 +89,6 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 	}
 
 	void modifyStudentData(string id, string fName, string lName, string pNo) {
-		// modifyStudentDataHelper(head, id, fName, lName, pno);
 		ofstream fout("temp.txt");
 		remove("student.txt");
 
