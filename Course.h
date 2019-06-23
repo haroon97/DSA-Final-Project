@@ -142,5 +142,17 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 		rename("temp.txt", "course.txt");
 	}
 	
+	//    GETTERRS
+
+	string getCourseName(string courseID) {
+		CourseNode* temp = head;
+		while (temp != NULL) {
+			if (temp->courseId == courseID) {
+				return temp->courseName;
+			}
+			temp = temp->next;
+		}
+		return NULL;
+	}
 };
 

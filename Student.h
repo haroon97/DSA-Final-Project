@@ -150,5 +150,29 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		rename("temp.txt", "student.txt");
 	}
 
+	//    GETTERS
+
+	string getFirstName(string studentID) {
+		StudentNode* temp = head;
+		while (temp != NULL) {
+			if (temp->studentId == studentID) {
+				return temp->firstName;
+			}
+			temp = temp->next;
+		}
+		return NULL;
+	}
+
+	string getLastName(string studentID) {
+		StudentNode* temp = head;
+		while (temp != NULL) {
+			if (temp->studentId == studentID) {
+				return temp->lastName;
+			}
+			temp = temp->next;
+		}
+		return NULL;
+	}
+
 };
 
