@@ -241,5 +241,21 @@ public:
 		cout << "D " << gradeD << endl;
 		cout << "F " << gradeF << endl;
 	}
+
+	string getMaxId(string courseID, string semester) {
+		int maxMarks = INT_MIN;
+		string maxID;
+		ResultNode* temp = head;
+		while (temp != NULL) {
+			if (temp->courseId == courseID && temp->semester == semester) {
+				if (temp->marks > maxMarks) {
+					maxMarks = temp->marks;
+					maxID = temp->studentId;
+				}
+			}
+			temp = temp->next;
+		}
+		return maxID;
+	}
 };
 
