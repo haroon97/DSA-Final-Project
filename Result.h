@@ -149,10 +149,10 @@ public:
 	}
 
 	//    GETTERS
-	string getCourseID(string studentID) {
+	string getCourseID(string studentID, string semester) {
 		ResultNode* temp = head;
 		while (temp != NULL) {
-			if (temp->studentId == studentID) {
+			if (temp->studentId == studentID && temp->semester == semester) {
 				return temp->courseId;
 			}
 			temp = temp->next;
@@ -160,10 +160,10 @@ public:
 		return NULL;
 	}
 
-	int getMarks(string studentID) {
+	int getMarks(string studentID, string semester) {
 		ResultNode* temp = head;
 		while (temp != NULL) {
-			if (temp->studentId == studentID) {
+			if (temp->studentId == studentID && temp->semester == semester) {
 				return temp->marks;
 			}
 			temp = temp->next;
@@ -196,6 +196,50 @@ public:
 		else {
 			return "F";
 		}
+	}
+
+	void getCourseReport(string courseID, string semester) {
+		ResultNode* temp = head;
+		int gradeA = 0, gradeAMinus = 0, gradeB = 0, gradeBPlus = 0, gradeBMinus = 0, gradeC = 0, gradeD = 0, gradeF = 0;
+		while (temp != NULL) {
+			if (temp->courseId == courseID && temp->semester == semester) {
+				if (temp->marks > 90) {
+					gradeA++;
+				}
+				else if (temp->marks > 85 && temp->marks < 90) {
+					gradeAMinus++;
+				}
+				else if (temp->marks > 80 && temp->marks < 85) {
+					gradeBPlus++;
+				}
+				else if (temp->marks > 75 && temp->marks < 80) {
+					gradeB++;
+				}
+				else if (temp->marks > 70 && temp->marks < 75) {
+					gradeBMinus++;
+				}
+				else if (temp->marks > 60 && temp->marks < 70) {
+					gradeC++;
+				}
+				else if (temp->marks > 50 && temp->marks < 60) {
+					gradeD++;
+				}
+				else {
+					gradeF++;
+				}
+			}
+			temp = temp->next;
+		}
+		cout << "Course ID: " << courseID << endl;
+		cout << "Grade " << "Number Of Students" << endl;
+		cout << "A " << gradeA << endl;
+		cout << "A- " << gradeAMinus << endl;
+		cout << "B+ " << gradeBPlus << endl;
+		cout << "B " << gradeB << endl;
+		cout << "B- " << gradeBMinus << endl;
+		cout << "C " << gradeC << endl;
+		cout << "D " << gradeD << endl;
+		cout << "F " << gradeF << endl;
 	}
 };
 
