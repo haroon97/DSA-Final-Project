@@ -38,7 +38,7 @@ public:
 			tail = newNode;
 		}
 		ofstream fout("result.txt", ios::app);
-		fout << studentID << ", " << courseID << ", " << semester << ", " << marks << endl;
+		fout << studentID << "," << courseID << "," << semester << "," << marks << endl;
 		fout.close();
 	}
 
@@ -49,7 +49,7 @@ public:
 		}
 		ResultNode* temp = head;
 		while (temp != NULL) {
-			cout << temp->studentId << ", " << temp->courseId << ", " << temp->semester << ", " << temp->marks << endl;
+			cout << temp->studentId << "," << temp->courseId << "," << temp->semester << "," << temp->marks << endl;
 			temp = temp->next;
 		}
 	}
@@ -73,20 +73,6 @@ public:
 		}
 	}
 
-	bool isResultPresent(string courseID, string studentID) {
-		if (head == NULL) {
-			return false;
-		}
-		ResultNode *temp = head;
-		while (temp != NULL) {
-			if (temp->courseId == courseID && temp->studentId == studentID) {
-				return true;
-			}
-			temp = temp->next;
-		}
-		return false;
-	}
-
 	void modifyResultData(string studentID, string courseID, string semester, int marks) {
 		ofstream fout("temp.txt");
 		remove("result.txt");
@@ -107,14 +93,14 @@ public:
 
 		temp = head;
 		while (temp != NULL) {
-			fout << temp->studentId << ", " << temp->courseId << ", " << temp->semester << ", " << temp->marks << endl;
+			fout << temp->studentId << "," << temp->courseId << "," << temp->semester << "," << temp->marks << endl;
 			temp = temp->next;
 		}
 		fout.close();
 		rename("temp.txt", "result.txt");
 	}
 
-	void deleteResultData(string studentID) {
+	void deleteResultData(string studentID, string courseID) {
 		ofstream fout("temp.txt");
 		remove("result.txt");
 
@@ -122,7 +108,7 @@ public:
 		ResultNode *prev = NULL;
 
 		while (temp != NULL) {
-			if (temp->studentId == studentID) {
+			if (temp->studentId == studentID && temp->courseId == courseID) {
 				break;
 			}
 			prev = temp;
@@ -141,29 +127,50 @@ public:
 		}
 		temp = head;
 		while (temp != NULL) {
-			fout << temp->studentId << ", " << temp->courseId << ", " << temp->semester << ", " << temp->marks << endl;
+			fout << temp->studentId << "," << temp->courseId << "," << temp->semester << "," << temp->marks << endl;
 			temp = temp->next;
 		}
 		fout.close();
 		rename("temp.txt", "result.txt");
 	}
 
-	//    GETTERS
-	string getCourseID(string studentID, string semester) {
+	bool doesStudentExists(string studentID) {
 		ResultNode* temp = head;
 		while (temp != NULL) {
-			if (temp->studentId == studentID && temp->semester == semester) {
-				return temp->courseId;
+			if (temp->studentId == studentID) {
+				return true;
 			}
 			temp = temp->next;
 		}
-		return NULL;
+		return false;
 	}
 
-	int getMarks(string studentID, string semester) {
+	bool doesCourseExists(string courseID) {
+		ResultNode* temp = head;
+		while (temp != NULL) {
+			if (temp->courseId == courseID) {
+				return true;
+			}
+			temp = temp->next;
+		}
+		return false;
+	}
+
+	//    GETTERS
+	void getCourseID(string studentID, string semester, vector<string> &courseID) {
 		ResultNode* temp = head;
 		while (temp != NULL) {
 			if (temp->studentId == studentID && temp->semester == semester) {
+				courseID.push_back(temp->courseId);
+			}
+			temp = temp->next;
+		}
+	}
+
+	int getMarks(string studentID, string courseID) {
+		ResultNode* temp = head;
+		while (temp != NULL) {
+			if (temp->studentId == studentID && temp->courseId == courseID) {
 				return temp->marks;
 			}
 			temp = temp->next;

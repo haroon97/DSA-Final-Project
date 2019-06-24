@@ -41,7 +41,7 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 			tail = newNode;
 		}
 		ofstream fout("student.txt", ios::app);
-		fout << id << ", " << fName << ", " << lName << ", " << pNo << endl;
+		fout << id << "," << fName << "," << lName << "," << pNo << endl;
 		fout.close();
 	}
 
@@ -52,7 +52,7 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		}
 		StudentNode* temp = head;
 		while (temp != NULL) {
-			cout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
+			cout << temp->studentId << "," << temp->firstName << "," << temp->lastName << "," << temp->phoneNo << endl;
 			temp = temp->next;
 		}
 	}
@@ -109,7 +109,7 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 
 		temp = head;
 		while (temp != NULL) {
-			fout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
+			fout << temp->studentId << "," << temp->firstName << "," << temp->lastName << "," << temp->phoneNo << endl;
 			temp = temp->next;
 		}
 		fout.close();
@@ -143,7 +143,7 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		}
 		temp = head;
 		while (temp != NULL) {
-			fout << temp->studentId << ", " << temp->firstName << ", " << temp->lastName << ", " << temp->phoneNo << endl;
+			fout << temp->studentId << "," << temp->firstName << "," << temp->lastName << "," << temp->phoneNo << endl;
 			temp = temp->next;
 		}
 		fout.close();
