@@ -4,7 +4,6 @@
 #include "Course.h"
 #include <vector>
 #include "Result.h"
-#include <ctime>
 using namespace std;
 
 void getStudentReport(string studentID, string semester, Student s, Course c, Result r) {
@@ -36,7 +35,7 @@ void getStudentReport(string studentID, string semester, Student s, Course c, Re
 
 void getCourseTopper(string courseID, string semester, Result r, Student s) {
 	string maxID = r.getMaxId(courseID, semester);
-	int marks = r.getMarks(maxID, semester);
+	int marks = r.getMarks(maxID, courseID);
 	string firstName = s.getFirstName(maxID);
 	string lastName = s.getLastName(maxID);
 	string grade = r.gradeCalculator(marks);
@@ -90,6 +89,8 @@ void deleteMenu() {
 	cout << "3. Delete In Result File" << endl;
 	cout << "Please Enter The Serial Number Of The Operation You Want To Perform" << endl;
 }
+
+
 
 int main() {
 	Result r;
@@ -332,7 +333,7 @@ int main() {
 				getCourseTopper(courseID, semester, r, s);
 				break;
 			case 9:
-				cout << "Log file" << endl;
+				
 				break;
 			case 10:
 				cout << "Previous State" << endl;

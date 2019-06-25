@@ -1,7 +1,9 @@
 #pragma once
 #include "CourseNode.h"
+#include <ctime>
 #include <fstream>
 #include <sstream>
+#pragma warning(disable : 4996) 
 using namespace std;
 class Course
 {
@@ -39,6 +41,11 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 		ofstream fout("course.txt", ios::app);
 		fout << courseID << "," << cName << endl;
 		fout.close();
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time: " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "course.txt" << endl;
+		fout1 << "Date Added: " << courseID << " " << cName << endl;
+		fout1.close();
 	}
 
 	void readFromCourseFile() {
@@ -97,6 +104,7 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 			}
 			temp = temp->next;
 		}
+		string oldCourse = temp->courseName;
 		temp->courseName = cName;
 
 		temp = head;
@@ -106,9 +114,16 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 		}
 		fout.close();
 		rename("temp.txt", "course.txt");
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "course.txt" << endl;
+		fout1 << "Old Data: " << oldCourse << endl;
+		fout1 << "New Data: " << cName << endl;
+		fout1.close();
 	}
 
 	void deleteCourseData(string courseID) {
+		string cName;
 		ofstream fout("temp.txt");
 		remove("course.txt");
 
@@ -117,6 +132,7 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 
 		while (temp != NULL) {
 			if (temp->courseId == courseID) {
+				cName = temp->courseName;
 				break;
 			}
 			prev = temp;
@@ -140,6 +156,11 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 		}
 		fout.close();
 		rename("temp.txt", "course.txt");
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time: " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "course.txt" << endl;
+		fout1 << "Data Deleted: " << courseID << " " << cName << endl;
+		fout1.close();
 	}
 	
 	//    GETTERRS
@@ -153,6 +174,26 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 			temp = temp->next;
 		}
 		return NULL;
+	}
+
+	std::string current_date(){
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: day DD-MM-YYYY
+		strftime(buf, sizeof(buf), "%A %d/%m/%Y", &tstruct);
+		return buf;
+	}
+
+	std::string current_time(){
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: HH:mm:ss
+		strftime(buf, sizeof(buf), "%X", &tstruct);
+		return buf;
 	}
 };
 

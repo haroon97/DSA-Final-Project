@@ -3,8 +3,10 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <ctime>
 #include <string>
 #include <cstdio>
+#pragma warning(disable : 4996) 
 class Student
 {
 private:
@@ -30,6 +32,7 @@ private:    // PRIVATE FUNCTIONS OF WHICH USERS DONT HAVE ACCESS
 	}
 
 public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
+
 	void addStudent(string id, string fName, string lName, string pNo) {
 		StudentNode *newNode = new StudentNode(id, fName, lName, pNo);
 		if (head == NULL) {
@@ -43,6 +46,11 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		ofstream fout("student.txt", ios::app);
 		fout << id << "," << fName << "," << lName << "," << pNo << endl;
 		fout.close();
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "student.txt" << endl;
+		fout1 << "Data Added: " << id << "," << fName << "," << lName << "," << pNo << endl;
+		fout1.close();
 	}
 
 	void listStudents() {
@@ -103,6 +111,9 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 			}
 			temp = temp->next;
 		}
+		string oldFirstName = temp->firstName;
+		string oldLastName = temp->lastName;
+		string oldPhoneNo = temp->phoneNo;
 		temp->firstName = fName;
 		temp->lastName = lName;
 		temp->phoneNo = pNo;
@@ -114,9 +125,16 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		}
 		fout.close();
 		rename("temp.txt", "student.txt");
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "student.txt" << endl;
+		fout1 << "Old Data: " << oldFirstName << " " << oldLastName << " " << oldPhoneNo << endl;
+		fout1 << "New Data: " << fName << " " << lName << " " << pNo << endl;
+		fout1.close();
 	}
 
 	void deleteStudentData(string id) {
+		string fName, lName, pNo;
 		ofstream fout("temp.txt");
 		remove("student.txt");
 
@@ -125,6 +143,9 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 
 		while (temp != NULL) {
 			if (temp->studentId == id) {
+				fName = temp->firstName;
+				lName = temp->lastName;
+				pNo = temp->phoneNo;
 				break;
 			}
 			prev = temp;
@@ -148,6 +169,11 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 		}
 		fout.close();
 		rename("temp.txt", "student.txt");
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time: " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "student.txt" << endl;
+		fout1 << "Data Deleted: " << id << " " << fName << " " << lName << " " << pNo << endl;
+		fout1.close();
 	}
 
 	//    GETTERS
@@ -172,6 +198,26 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 			temp = temp->next;
 		}
 		return NULL;
+	}
+
+	std::string current_date(){
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: day DD-MM-YYYY
+		strftime(buf, sizeof(buf), "%A %d/%m/%Y", &tstruct);
+		return buf;
+	}
+
+	std::string current_time(){
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: HH:mm:ss
+		strftime(buf, sizeof(buf), "%X", &tstruct);
+		return buf;
 	}
 
 };

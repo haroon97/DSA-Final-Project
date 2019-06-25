@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ctime>
+#pragma warning(disable : 4996) 
 class Result
 {
 private:
@@ -40,6 +42,11 @@ public:
 		ofstream fout("result.txt", ios::app);
 		fout << studentID << "," << courseID << "," << semester << "," << marks << endl;
 		fout.close();
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time: " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "result.txt" << endl;
+		fout1 << "Date Added: " << studentID << " " << courseID << " " << semester << " " << marks << endl;
+		fout1.close();
 	}
 
 	void listResult() {
@@ -88,6 +95,8 @@ public:
 			}
 			temp = temp->next;
 		}
+		string oldSem = temp->semester;
+		int oldMarks = temp->marks;
 		temp->semester = semester;
 		temp->marks = marks;
 
@@ -98,9 +107,17 @@ public:
 		}
 		fout.close();
 		rename("temp.txt", "result.txt");
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "result.txt" << endl;
+		fout1 << "Old Data: " << oldSem << " " << oldMarks << endl;
+		fout1 << "New Data: " << semester << " " << marks << endl;
+		fout1.close();
 	}
 
 	void deleteResultData(string studentID, string courseID) {
+		int marks = 0;
+		string semester;
 		ofstream fout("temp.txt");
 		remove("result.txt");
 
@@ -109,6 +126,8 @@ public:
 
 		while (temp != NULL) {
 			if (temp->studentId == studentID && temp->courseId == courseID) {
+				marks = temp->marks;
+				semester = temp->semester;
 				break;
 			}
 			prev = temp;
@@ -132,6 +151,11 @@ public:
 		}
 		fout.close();
 		rename("temp.txt", "result.txt");
+		ofstream fout1("log.txt", ios::app);
+		fout1 << "Date/Time: " << current_date() << " " << current_time() << endl;
+		fout1 << "File Name: " << "result.txt" << endl;
+		fout1 << "Data Deleted: " << studentID << " " << courseID << " " << marks << " " << semester << endl;
+		fout1.close();
 	}
 
 	bool doesStudentExists(string studentID) {
@@ -263,6 +287,26 @@ public:
 			temp = temp->next;
 		}
 		return maxID;
+	}
+
+	std::string current_date(){
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: day DD-MM-YYYY
+		strftime(buf, sizeof(buf), "%A %d/%m/%Y", &tstruct);
+		return buf;
+	}
+
+	std::string current_time(){
+		time_t now = time(NULL);
+		struct tm tstruct;
+		char buf[40];
+		tstruct = *localtime(&now);
+		//format: HH:mm:ss
+		strftime(buf, sizeof(buf), "%X", &tstruct);
+		return buf;
 	}
 };
 
