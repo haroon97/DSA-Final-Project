@@ -199,7 +199,7 @@ public:
 			}
 			temp = temp->next;
 		}
-		return NULL;
+		return 0;
 	}
 
 	string gradeCalculator(int marks) {
@@ -287,6 +287,18 @@ public:
 			temp = temp->next;
 		}
 		return maxID;
+	}
+
+	void getCourses(string studentID, vector<string> &courseIds, vector<int> &marks, vector<string> &semester) {
+		ResultNode* temp = head;
+		while (temp != NULL) {
+			if (temp->studentId == studentID) {
+				courseIds.push_back(temp->courseId);
+				marks.push_back(temp->marks);
+				semester.push_back(temp->semester);
+			}
+			temp = temp->next;
+		}
 	}
 
 	std::string current_date(){

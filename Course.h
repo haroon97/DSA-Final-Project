@@ -173,7 +173,7 @@ public:    // PUBLIC FUNCIONS WHICH USERS HAVE ACCESS
 			}
 			temp = temp->next;
 		}
-		return NULL;
+		return 0;
 	}
 
 	std::string current_date(){

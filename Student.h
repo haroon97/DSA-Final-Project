@@ -186,7 +186,7 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 			}
 			temp = temp->next;
 		}
-		return NULL;
+		return "";
 	}
 
 	string getLastName(string studentID) {
@@ -197,7 +197,7 @@ public:    // PUBLIC FUNCTIONS WHICH USERS HAVE ACCESS
 			}
 			temp = temp->next;
 		}
-		return NULL;
+		return "";
 	}
 
 	std::string current_date(){
